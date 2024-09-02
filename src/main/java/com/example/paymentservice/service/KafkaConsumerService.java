@@ -12,17 +12,14 @@ import java.io.IOException;
 @Service
 public class KafkaConsumerService {
 
-    private static final String FILE_PATH = "P:/kafka/my-files/file.txt";
+    private static final String FILE_PATH = "P:/kafka/my-files/my-file.txt";
 
     @KafkaListener(topics = "new-topic", groupId = "order-processing-group")
     public void consume(ConsumerRecord<String, String> record, Acknowledgment acknowledgment){
         String message = record.value();
-        //System.out.println("Consumed message: "+ message);
+        System.out.println("Consumed message: "+ message);
 
         appendToFile(message);
-
-        // Manually commit the offset
-        acknowledgment.acknowledge();
     }
 
     private void appendToFile(String message) {
